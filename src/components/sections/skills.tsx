@@ -83,7 +83,9 @@ export function SkillsSection() {
         >
           {/* 섹션 헤더 */}
           <motion.div variants={fadeInUp} className="mb-16 text-center">
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl">기술 스택</h2>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
+              기술 스택
+            </h2>
             <div className="bg-primary mx-auto mb-4 h-1 w-20 rounded-full" />
             <p className="text-muted-foreground mx-auto max-w-2xl">
               다양한 기술을 활용하여 최적의 솔루션을 제공합니다.

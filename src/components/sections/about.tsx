@@ -1,8 +1,10 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Code2, Lightbulb, Rocket, Users } from "lucide-react";
+import { ArrowRight, Code2, Lightbulb, Rocket, Users } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
@@ -50,25 +52,27 @@ export function AboutSection() {
         >
           {/* 섹션 헤더 */}
           <motion.div variants={fadeInUp} className="mb-16 text-center">
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl">소개</h2>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
+              소개
+            </h2>
             <div className="bg-primary mx-auto h-1 w-20 rounded-full" />
           </motion.div>
 
           {/* 소개 텍스트 */}
           <motion.div
             variants={fadeInUp}
-            className="mb-16 space-y-4 text-center"
+            className="mx-auto mb-16 max-w-2xl space-y-2 text-center break-keep"
           >
-            <p className="text-muted-foreground text-lg leading-relaxed">
+            <p className="text-muted-foreground text-base leading-7 md:text-lg md:leading-8">
               저는 사용자 중심의 웹 경험을 만드는 것에 열정을 가진 웹
               개발자입니다.
             </p>
-            <p className="text-muted-foreground text-lg leading-relaxed">
+            <p className="text-muted-foreground text-base leading-7 md:text-lg md:leading-8">
               최신 웹 기술을 활용하여 아름답고 기능적인 인터페이스를 구현하며,
               <br />
               성능 최적화와 접근성을 항상 고려합니다.
             </p>
-            <p className="text-muted-foreground text-lg leading-relaxed">
+            <p className="text-muted-foreground text-base leading-7 md:text-lg md:leading-8">
               새로운 도전을 통해 성장하고, 팀과 함께 더 나은 제품을 만들어가는
               것을 즐깁니다.
             </p>
@@ -100,6 +104,16 @@ export function AboutSection() {
                 </Card>
               </motion.div>
             ))}
+          </motion.div>
+
+          {/* 더 알아보기 버튼 */}
+          <motion.div variants={fadeInUp} className="mt-12 text-center">
+            <Button variant="outline" size="lg" asChild>
+              <Link href="/about">
+                더 알아보기
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </motion.div>
         </motion.div>
       </div>

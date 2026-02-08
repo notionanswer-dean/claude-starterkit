@@ -54,7 +54,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-6 text-5xl font-bold md:text-7xl lg:text-8xl"
+          className="mb-6 text-5xl font-extrabold tracking-tight md:text-7xl lg:text-8xl"
         >
           <span className="from-foreground via-foreground to-muted-foreground bg-gradient-to-r bg-clip-text text-transparent">
             웹 개발자

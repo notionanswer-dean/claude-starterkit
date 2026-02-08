@@ -19,7 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
+import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { toast } from "sonner";
 
 // 폼 스키마 정의
@@ -100,29 +100,34 @@ export function ContactSection() {
         >
           {/* 섹션 헤더 */}
           <motion.div variants={fadeInUp} className="mb-16 text-center">
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl">연락하기</h2>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
+              연락하기
+            </h2>
             <div className="bg-primary mx-auto mb-4 h-1 w-20 rounded-full" />
             <p className="text-muted-foreground mx-auto max-w-2xl">
               프로젝트 협업이나 문의사항이 있으시면 연락해주세요.
             </p>
           </motion.div>
 
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 lg:grid-cols-2">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 items-stretch gap-12 lg:grid-cols-2">
             {/* 연락처 정보 */}
-            <motion.div variants={staggerContainer} className="space-y-6">
-              <motion.div variants={fadeInUp}>
-                <h3 className="mb-6 text-2xl font-semibold">연락처 정보</h3>
-                <p className="text-muted-foreground mb-8">
-                  아래 연락처로 직접 연락하시거나, 옆 폼을 통해 메시지를
-                  보내주세요.
-                </p>
-              </motion.div>
+            <motion.div variants={fadeInUp}>
+              <Card className="border-border/50 bg-background/50 flex h-full flex-col backdrop-blur-sm">
+                <CardContent className="flex flex-1 flex-col justify-between p-6">
+                  <div>
+                    <h3 className="mb-2 text-2xl font-semibold">연락처 정보</h3>
+                    <p className="text-muted-foreground mb-8">
+                      아래 연락처로 직접 연락하시거나, 옆 폼을 통해 메시지를
+                      보내주세요.
+                    </p>
+                  </div>
 
-              {contactInfo.map((info) => (
-                <motion.div key={info.title} variants={staggerItem}>
-                  <Card className="border-border/50 bg-background/50 backdrop-blur-sm transition-shadow hover:shadow-md">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-4">
+                  <div className="space-y-4">
+                    {contactInfo.map((info) => (
+                      <div
+                        key={info.title}
+                        className="hover:bg-muted/50 flex items-center gap-4 rounded-lg p-3 transition-colors"
+                      >
                         <div className="bg-primary/10 text-primary rounded-lg p-3">
                           <info.icon className="h-5 w-5" />
                         </div>
@@ -142,16 +147,24 @@ export function ContactSection() {
                           )}
                         </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </motion.div>
 
             {/* 연락처 폼 */}
             <motion.div variants={fadeInUp}>
               <Card className="border-border/50 bg-background/50 backdrop-blur-sm">
                 <CardContent className="p-6">
+                  <div className="mb-6">
+                    <h3 className="mb-2 text-2xl font-semibold">
+                      메시지 보내기
+                    </h3>
+                    <p className="text-muted-foreground">
+                      아래 양식을 작성하여 메시지를 보내주세요.
+                    </p>
+                  </div>
                   <Form {...form}>
                     <form
                       onSubmit={form.handleSubmit(onSubmit)}

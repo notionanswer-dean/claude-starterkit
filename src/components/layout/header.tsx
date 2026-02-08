@@ -11,11 +11,11 @@ import type { NavItem } from "@/types";
 
 // 네비게이션 메뉴 아이템
 const navItems: NavItem[] = [
-  { label: "홈", href: "#hero" },
-  { label: "소개", href: "#about" },
-  { label: "기술", href: "#skills" },
-  { label: "프로젝트", href: "#projects" },
-  { label: "연락처", href: "#contact" },
+  { label: "홈", href: "/#hero" },
+  { label: "소개", href: "/about" },
+  { label: "기술", href: "/#skills" },
+  { label: "프로젝트", href: "/#projects" },
+  { label: "연락처", href: "/#contact" },
 ];
 
 /**
