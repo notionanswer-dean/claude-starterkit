@@ -13,7 +13,15 @@ import {
 import type { Project } from "@/types";
 
 // Data Source ID (Notion API v3에서는 DB가 아닌 Data Source 단위로 쿼리)
-const PROJECTS_DS_ID = process.env.NOTION_PROJECTS_DB_ID!;
+function getProjectsDataSourceId(): string {
+  const id = process.env.NOTION_PROJECTS_DB_ID;
+  if (!id) {
+    throw new Error("NOTION_PROJECTS_DB_ID 환경변수가 설정되지 않았습니다.");
+  }
+  return id;
+}
+
+const PROJECTS_DS_ID = getProjectsDataSourceId();
 
 // Notion 페이지를 Project 타입으로 변환
 export function transformNotionPageToProject(
@@ -116,7 +124,8 @@ export async function getProjectDetail(
     const blocks = await getPageBlocks(pageId);
 
     return { project, blocks };
-  } catch {
+  } catch (error) {
+    console.error("Notion 프로젝트 상세 조회 실패:", pageId, error);
     return null;
   }
 }
@@ -133,7 +142,41 @@ export async function getAllProjectIds(): Promise<string[]> {
   return pages.map((page) => page.id);
 }
 
-// unstable_cache 래핑 (1시간 revalidate)
+// unstable_cache 래핑: 프로젝트 상세 (1시간 revalidate)
+const getCachedProjectDetailInner = unstable_cache(
+  async (pageId: string) => getProjectDetail(pageId),
+  ["project-detail"],
+  { revalidate: 3600 }
+);
+
+export async function getCachedProjectDetail(
+  pageId: string
+): Promise<{ project: Project; blocks: BlockObjectResponse[] } | null> {
+  try {
+    return await getCachedProjectDetailInner(pageId);
+  } catch (error) {
+    console.error("Notion 프로젝트 상세 캐시 조회 실패:", pageId, error);
+    return null;
+  }
+}
+
+// unstable_cache 래핑: 전체 프로젝트 ID 목록 (1시간 revalidate)
+const getCachedAllProjectIdsInner = unstable_cache(
+  async () => getAllProjectIds(),
+  ["project-ids"],
+  { revalidate: 3600 }
+);
+
+export async function getCachedAllProjectIds(): Promise<string[]> {
+  try {
+    return await getCachedAllProjectIdsInner();
+  } catch (error) {
+    console.error("Notion 프로젝트 ID 목록 캐시 조회 실패:", error);
+    return [];
+  }
+}
+
+// unstable_cache 래핑: 프로젝트 목록 (1시간 revalidate)
 // getProjects()가 에러를 throw하면 캐시에 저장되지 않으므로, 다음 요청에서 재시도됨
 const getCachedProjectsInner = unstable_cache(
   async () => getProjects(),

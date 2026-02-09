@@ -7,8 +7,13 @@ import type {
 } from "@notionhq/client/build/src/api-endpoints";
 
 // Notion 클라이언트 초기화
+const NOTION_API_KEY = process.env.NOTION_API_KEY;
+if (!NOTION_API_KEY) {
+  throw new Error("NOTION_API_KEY 환경변수가 설정되지 않았습니다.");
+}
+
 export const notion = new Client({
-  auth: process.env.NOTION_API_KEY,
+  auth: NOTION_API_KEY,
 });
 
 // 데이터소스 쿼리 (Notion API v3에서는 dataSources.query 사용)

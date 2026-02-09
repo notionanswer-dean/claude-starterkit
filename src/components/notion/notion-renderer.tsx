@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import type {
   BlockObjectResponse,
@@ -244,7 +245,7 @@ export function NotionRenderer({ blocks }: { blocks: BlockObjectResponse[] }) {
           return (
             <Tag key={index} className="mb-4">
               {item.map((block) => (
-                <>{renderBlock(block)}</>
+                <Fragment key={block.id}>{renderBlock(block)}</Fragment>
               ))}
             </Tag>
           );

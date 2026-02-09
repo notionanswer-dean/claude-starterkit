@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { NotionRenderer } from "@/components/notion";
-import { getProjectDetail, getAllProjectIds } from "@/lib/notion-projects";
+import {
+  getCachedProjectDetail,
+  getCachedAllProjectIds,
+} from "@/lib/notion-projects";
 import { ProjectDetailContent } from "./project-detail-content";
 
 interface PageProps {
@@ -11,7 +14,7 @@ interface PageProps {
 // 정적 생성을 위한 경로 목록
 export async function generateStaticParams() {
   try {
-    const ids = await getAllProjectIds();
+    const ids = await getCachedAllProjectIds();
     return ids.map((id) => ({ id }));
   } catch {
     return [];
@@ -23,7 +26,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { id } = await params;
-  const result = await getProjectDetail(id);
+  const result = await getCachedProjectDetail(id);
 
   if (!result) {
     return { title: "프로젝트를 찾을 수 없습니다" };
@@ -37,7 +40,7 @@ export async function generateMetadata({
 
 export default async function ProjectDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const result = await getProjectDetail(id);
+  const result = await getCachedProjectDetail(id);
 
   if (!result) {
     notFound();

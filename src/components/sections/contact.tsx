@@ -76,17 +76,30 @@ export function ContactSection() {
   async function onSubmit(data: ContactFormValues) {
     setIsSubmitting(true);
 
-    // 실제 API 호출 시뮬레이션 (실제 구현 시 API 연동 필요)
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-    console.log("Form data:", data);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "전송에 실패했습니다.");
+      }
 
-    toast.success("메시지가 전송되었습니다!", {
-      description: "빠른 시일 내에 답변 드리겠습니다.",
-    });
-
-    form.reset();
-    setIsSubmitting(false);
+      toast.success("메시지가 전송되었습니다!", {
+        description: "빠른 시일 내에 답변 드리겠습니다.",
+      });
+      form.reset();
+    } catch (error) {
+      toast.error("메시지 전송에 실패했습니다.", {
+        description:
+          error instanceof Error ? error.message : "잠시 후 다시 시도해주세요.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (

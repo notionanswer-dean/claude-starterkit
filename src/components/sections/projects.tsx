@@ -30,30 +30,36 @@ function ProjectCard({ project }: { project: Project }) {
             {/* 호버 시 오버레이 */}
             <div className="bg-primary/80 absolute inset-0 z-20 flex items-center justify-center gap-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               {project.demoUrl && (
-                <motion.span
+                <motion.a
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.title} 데모 보기`}
                   onClick={(e) => {
-                    e.preventDefault();
-                    window.open(project.demoUrl, "_blank");
+                    e.stopPropagation();
                   }}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="bg-background text-foreground cursor-pointer rounded-full p-3"
+                  className="bg-background text-foreground rounded-full p-3"
                 >
                   <ExternalLink className="h-5 w-5" />
-                </motion.span>
+                </motion.a>
               )}
               {project.githubUrl && (
-                <motion.span
+                <motion.a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.title} GitHub 저장소`}
                   onClick={(e) => {
-                    e.preventDefault();
-                    window.open(project.githubUrl, "_blank");
+                    e.stopPropagation();
                   }}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="bg-background text-foreground cursor-pointer rounded-full p-3"
+                  className="bg-background text-foreground rounded-full p-3"
                 >
                   <Github className="h-5 w-5" />
-                </motion.span>
+                </motion.a>
               )}
             </div>
           </div>
