@@ -24,27 +24,27 @@ function renderBlock(block: BlockObjectResponse) {
     case "heading_1": {
       const { rich_text } = block.heading_1;
       return (
-        <h1 className="mt-8 mb-6 text-3xl font-bold tracking-tight">
+        <h2 className="mt-8 mb-6 text-3xl font-bold tracking-tight">
           <NotionRichText richText={rich_text as RichTextItemResponse[]} />
-        </h1>
+        </h2>
       );
     }
 
     case "heading_2": {
       const { rich_text } = block.heading_2;
       return (
-        <h2 className="mt-6 mb-4 text-2xl font-semibold tracking-tight">
+        <h3 className="mt-6 mb-4 text-2xl font-semibold tracking-tight">
           <NotionRichText richText={rich_text as RichTextItemResponse[]} />
-        </h2>
+        </h3>
       );
     }
 
     case "heading_3": {
       const { rich_text } = block.heading_3;
       return (
-        <h3 className="mt-4 mb-3 text-xl font-semibold">
+        <h4 className="mt-4 mb-3 text-xl font-semibold">
           <NotionRichText richText={rich_text as RichTextItemResponse[]} />
-        </h3>
+        </h4>
       );
     }
 

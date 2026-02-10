@@ -48,9 +48,24 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
   const { project, blocks } = result;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    description: project.description,
+    url: `https://your-domain.com/projects/${id}`,
+    ...(project.image && { image: project.image }),
+  };
+
   return (
-    <ProjectDetailContent project={project}>
-      <NotionRenderer blocks={blocks} />
-    </ProjectDetailContent>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ProjectDetailContent project={project}>
+        <NotionRenderer blocks={blocks} />
+      </ProjectDetailContent>
+    </>
   );
 }

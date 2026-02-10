@@ -14,11 +14,15 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://your-domain.com"),
   title: "Portfolio | 웹 개발자 포트폴리오",
   description:
     "창의적인 웹 개발자의 포트폴리오입니다. 프로젝트, 기술 스택, 경험을 확인해보세요.",
   keywords: ["포트폴리오", "웹 개발자", "프론트엔드", "React", "Next.js"],
   authors: [{ name: "Your Name" }],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "ko_KR",
@@ -44,6 +48,27 @@ export default function RootLayout({
   return (
     <html lang="ko" suppressHydrationWarning>
       <body className={`${pretendard.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  name: "Portfolio",
+                  url: "https://your-domain.com",
+                },
+                {
+                  "@type": "Person",
+                  name: "Your Name",
+                  url: "https://your-domain.com",
+                  jobTitle: "웹 개발자",
+                },
+              ],
+            }),
+          }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

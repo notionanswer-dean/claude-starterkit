@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -24,9 +25,19 @@ function ProjectCard({ project }: { project: Project }) {
           {/* 프로젝트 이미지 */}
           <div className="bg-muted relative h-48 overflow-hidden">
             <div className="from-background/80 absolute inset-0 z-10 bg-gradient-to-t to-transparent" />
-            <div className="text-muted-foreground absolute inset-0 flex items-center justify-center">
-              <span className="text-sm">Project Image</span>
-            </div>
+            {project.image ? (
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            ) : (
+              <div className="text-muted-foreground absolute inset-0 flex items-center justify-center">
+                <span className="text-sm">Project Image</span>
+              </div>
+            )}
             {/* 호버 시 오버레이 */}
             <div className="bg-primary/80 absolute inset-0 z-20 flex items-center justify-center gap-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               {project.demoUrl && (

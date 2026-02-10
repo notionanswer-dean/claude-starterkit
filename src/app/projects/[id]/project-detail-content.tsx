@@ -18,7 +18,7 @@ export function ProjectDetailContent({
   children,
 }: ProjectDetailContentProps) {
   return (
-    <main className="min-h-screen pt-24 pb-16">
+    <div className="min-h-screen pt-24 pb-16">
       <div className="container mx-auto max-w-3xl px-4">
         <motion.div
           initial="hidden"
@@ -94,6 +94,6 @@ export function ProjectDetailContent({
           <motion.div variants={fadeInUp}>{children}</motion.div>
         </motion.div>
       </div>
-    </main>
+    </div>
   );
 }
