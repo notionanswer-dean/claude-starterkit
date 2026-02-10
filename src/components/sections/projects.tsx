@@ -2,12 +2,12 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { Safari } from "@/components/ui/safari";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 import type { Project } from "@/types";
@@ -23,18 +23,17 @@ function ProjectCard({ project }: { project: Project }) {
       <Link href={`/projects/${project.id}`}>
         <Card className="group border-border/50 bg-background/50 h-full overflow-hidden backdrop-blur-sm transition-all duration-300 hover:shadow-xl">
           {/* 프로젝트 이미지 */}
-          <div className="bg-muted relative h-48 overflow-hidden">
-            <div className="from-background/80 absolute inset-0 z-10 bg-gradient-to-t to-transparent" />
+          <div className="bg-muted relative overflow-hidden">
+            <div className="from-background/60 absolute inset-0 z-10 bg-gradient-to-t to-transparent" />
             {project.image ? (
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
+              <Safari
+                url={project.demoUrl || project.title}
+                imageSrc={project.image}
+                mode="simple"
+                className="relative z-0"
               />
             ) : (
-              <div className="text-muted-foreground absolute inset-0 flex items-center justify-center">
+              <div className="text-muted-foreground flex h-48 items-center justify-center">
                 <span className="text-sm">Project Image</span>
               </div>
             )}

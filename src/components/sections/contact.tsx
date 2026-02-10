@@ -18,6 +18,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import confetti from "canvas-confetti";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { fadeInUp, staggerContainer } from "@/lib/animations";
 import { toast } from "sonner";
@@ -91,6 +92,29 @@ export function ContactSection() {
       toast.success("메시지가 전송되었습니다!", {
         description: "빠른 시일 내에 답변 드리겠습니다.",
       });
+
+      // 축하 confetti 효과
+      const duration = 3000;
+      const end = Date.now() + duration;
+      const frame = () => {
+        confetti({
+          particleCount: 3,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ["#a786ff", "#fd8bbc", "#eca184"],
+        });
+        confetti({
+          particleCount: 3,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ["#a786ff", "#fd8bbc", "#eca184"],
+        });
+        if (Date.now() < end) requestAnimationFrame(frame);
+      };
+      frame();
+
       form.reset();
     } catch (error) {
       toast.error("메시지 전송에 실패했습니다.", {

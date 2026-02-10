@@ -4,6 +4,7 @@ import * as React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DotPattern } from "@/components/ui/dot-pattern";
 import Link from "next/link";
 
 /**
@@ -24,6 +25,14 @@ export function HeroSection() {
     >
       {/* 배경 그라데이션 */}
       <div className="from-background via-background to-muted/20 absolute inset-0 bg-gradient-to-br" />
+
+      {/* 도트 패턴 배경 */}
+      <DotPattern
+        width={20}
+        height={20}
+        cr={1.2}
+        className="fill-muted-foreground/20 [mask-image:radial-gradient(ellipse_at_center,white_30%,transparent_70%)]"
+      />
 
       {/* 배경 장식 요소 */}
       <motion.div

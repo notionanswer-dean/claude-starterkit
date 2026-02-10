@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -77,6 +78,7 @@ export default function RootLayout({
         >
           <div className="relative flex min-h-screen flex-col">
             <Header />
+            <ScrollProgress className="top-[64px]" />
             <main className="flex-1">{children}</main>
             <Footer />
           </div>

@@ -4,6 +4,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { NumberTicker } from "@/components/ui/number-ticker";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { fadeInUp, staggerContainer, staggerItem } from "@/lib/animations";
 
@@ -50,7 +51,14 @@ function SkillBar({ name, level }: { name: string; level: number }) {
     <div className="space-y-2">
       <div className="flex justify-between text-sm">
         <span className="font-medium">{name}</span>
-        <span className="text-muted-foreground">{level}%</span>
+        <span className="text-muted-foreground">
+          <NumberTicker
+            value={level}
+            delay={0.3}
+            className="text-muted-foreground"
+          />
+          %
+        </span>
       </div>
       <div className="bg-muted h-2 overflow-hidden rounded-full">
         <motion.div
